@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100b19">
+<title>For Chipkali 🦎 — From Kiddo</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --pink: #ff9bc2;
+    --rose: #f46b9a;
+    --cream: #fff0f5;
+    --muted: #c9b5c8;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+      radial-gradient(ellipse at 50% 0%, #39203e 0%, transparent 55%),
+      radial-gradient(ellipse at 10% 90%, #26152e 0%, transparent 50%),
+      #100b19;
+    color: var(--cream);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  .stars, .hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .stars span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: .5;
+    animation: twinkle 3s infinite ease-in-out alternate;
+  }
+
+  @keyframes twinkle {
+    from { opacity: .15; transform: scale(.7); }
+    to { opacity: .9; transform: scale(1.5); }
+  }
+
+  .hearts span {
+    position: absolute;
+    bottom: -60px;
+    color: var(--pink);
+    opacity: 0;
+    animation: floatUp linear infinite;
+    filter: drop-shadow(0 0 8px #ff80b5);
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) rotate(0deg) scale(.7);
+      opacity: 0;
+    }
+    15% { opacity: .65; }
+    85% { opacity: .5; }
+    100% {
+      transform: translateY(-115vh) rotate(35deg) scale(1.3);
+      opacity: 0;
+    }
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 32px, 720px);
+    margin: auto;
+    padding: 48px 0 36px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    color: var(--pink);
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    font-size: clamp(37px, 8vw, 65px);
+    line-height: 1.1;
+    font-weight: normal;
+    letter-spacing: -2px;
+    text-shadow: 0 0 35px #f46b9a38;
+  }
+
+  h1 em {
+    color: var(--pink);
+    font-weight: normal;
+  }
+
+  .subtitle {
+    margin: 18px auto 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 440px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 26px auto;
+    color: var(--pink);
+  }
+
+  .divider::before, .divider::after {
+    content: "";
+    width: 55px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #bd668d);
+  }
+
+  .divider::after {
+    transform: rotate(180deg);
+  }
+
+  .envelope-area {
+    margin: 18px auto 12px;
+    perspective: 900px;
+  }
+
+  .envelope {
+    position: relative;
+    width: min(300px, 82vw);
+    height: 190px;
+    margin: 0 auto;
+    cursor: pointer;
+    outline: none;
+    filter: drop-shadow(0 15px 28px #0008);
+    transition: transform .3s;
+  }
+
+  .envelope:hover {
+    transform: translateY(-4px);
+  }
+
+  .envelope:focus-visible {
+    outline: 2px solid var(--pink);
+    outline-offset: 8px;
+  }
+
+  .env-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #8d456c, #572d52);
+  }
+
+  .letter {
+    position: absolute;
+    left: 7%;
+    width: 86%;
+    height: 82%;
+    top: 5%;
+    padding: 18px 10px;
+    border-radius: 4px;
+    background: #fff0f5;
+    color: #67384f;
+    font-size: 19px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    transition: transform 1s .25s, top 1s .25s;
+    z-index: 2;
+  }
+
+  .letter small {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #a75b80;
+  }
+
+  .letter strong {
+    font-size: 26px;
+    font-weight: normal;
+  }
+
+  .env-front {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #c16b94, #87446f);
+    clip-path: polygon(0 0, 50% 60%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 0 0 8px 8px;
+    z-index: 3;
+  }
+
+  .flap {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #d88aab, #a95785);
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    transform-origin: top center;
+    transition: transform .8s ease;
+    z-index: 4;
+  }
+
+  .seal {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #f9b6d0;
+    color: #81375d;
+    box-shadow: 0 0 20px #ff9bc266;
+    transition: opacity .3s;
+    font-size: 20px;
+  }
+
+  .envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+  }
+
+  .envelope.open .letter {
+    top: -55%;
+    transform: translateY(-10px);
+    z-index: 6;
+  }
+
+  .envelope.open .seal {
+    opacity: 0;
+  }
+
+  .hint {
+    margin-top: 24px;
+    color: #d6b9cc;
+    font: 11px Arial, sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: breathe 2s infinite;
+  }
+
+  @keyframes breathe {
+    50% { opacity: .5; }
+  }
+
+  .open-button, .again-button {
+    margin-top: 23px;
+    padding: 14px 28px;
+    border: 1px solid #e58bb2;
+    border-radius: 50px;
+    color: #fff3f8;
+    background: linear-gradient(120deg, #a94d79, #72395f);
+    cursor: pointer;
+    box-shadow: 0 0 24px #df659b25;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .open-button:hover, .again-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px #df659b50;
+  }
+
+  .open-button:focus-visible, .again-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 4px;
+  }
+
+  .message-card {
+    margin: 35px auto 0;
+    padding: 30px clamp(18px, 5vw, 38px);
+    border: 1px solid #d87ca62b;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #ffffff09, #ffffff03);
+    box-shadow: 0 15px 60px #0002;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: opacity .7s, transform .7s, max-height .7s, visibility .7s;
+  }
+
+  .message-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 1200px;
+    visibility: visible;
+  }
+
+  .message-label {
+    text-align: center;
+    font: 10px Arial, sans-serif;
+    letter-spacing: 4px;
+    color: var(--pink);
+    margin-bottom: 25px;
+  }
+
+  #typedMessage {
+    font-size: 17px;
+    line-height: 1.95;
+    color: #f0dce7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    min-height: 150px;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 17px;
+    margin-left: 3px;
+    vertical-align: -2px;
+    background: var(--pink);
+    animation: blink .8s infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .signature {
+    text-align: right;
+    color: var(--pink);
+    font-size: 24px;
+    font-style: italic;
+    margin-top: 25px;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  .signature.visible { opacity: 1; }
+
+  .ending {
+    margin-top: 30px;
+    padding: 23px 12px 0;
+    border-top: 1px solid #e6a0c21c;
+    text-align: center;
+    color: #cdb3c6;
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .ending strong {
+    color: var(--pink);
+    font-weight: normal;
+  }
+
+  .footer {
+    margin-top: 44px;
+    font: 10px Arial, sans-serif;
+    letter-spacing: 3px;
+    color: #866d86;
+  }
+
+  @media (max-width: 420px) {
+    main { padding-top: 36px; }
+    .eyebrow { letter-spacing: 3px; }
+    .subtitle { font-size: 14px; }
+    .envelope { height: 175px; }
+    .envelope.open .letter { top: -48%; }
+    .message-card { padding: 24px 19px; }
+    #typedMessage { font-size: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+<div class="stars" id="stars" aria-hidden="true"></div>
+<div class="hearts" id="hearts" aria-hidden="true"></div>
+
+<main>
+  <p class="eyebrow">A little something from my heart</p>
+
+  <h1>I'm sorry,<br><em>Chipkali 🦎</em></h1>
+
+  <p class="subtitle">
+    Some words are difficult to say out loud.<br>
+    So, Kiddo made this little corner of the universe for you.
+  </p>
+
+  <div class="divider">♡</div>
+
+  <div class="envelope-area">
+    <div class="envelope" id="envelope"
+         role="button" tabindex="0"
+         aria-label="Open your letter"
+         aria-expanded="false">
+      <div class="env-back"></div>
+
+      <div class="letter">
+        <small>A LETTER FOR YOU</small>
+        <strong>I'm truly sorry ♡</strong>
+        <span style="font-size:12px">With love, Kiddo</span>
+      </div>
+
+      <div class="env-front"></div>
+      <div class="flap"></div>
+      <div class="seal">♥</div>
+    </div>
+
+    <p class="hint" id="hint">A little letter is waiting for you</p>
+
+    <button class="open-button" id="openButton">
+      Open your letter 💌
+    </button>
+  </div>
+
+  <section class="message-card" id="messageCard"
+           aria-label="Personal apology letter"
+           aria-hidden="true">
+    <p class="message-label">JUST BETWEEN US · ♡</p>
+    <p id="typedMessage"></p><span class="cursor" id="cursor"></span>
+
+    <p class="signature" id="signature">— Your Kiddo ♡</p>
+
+    <div class="ending">
+      You don't have to reply right away.<br>
+      You don't have to pretend everything is okay.<br><br>
+      <strong>Your feelings matter to me.</strong><br>
+      Whenever you're ready, I'm here. 🦎♡
+    </div>
+  </section>
+
+  <p class="footer">MADE WITH A SORRY HEART · FROM KIDDO</p>
+</main>
+
+<script>
+  // Create tiny stars in the background.
+  const stars = document.getElementById("stars");
+
+  for (let i = 0; i < 65; i++) {
+    const star = document.createElement("span");
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDelay = Math.random() * 4 + "s";
+    star.style.animationDuration = (2 + Math.random() * 4) + "s";
+    stars.appendChild(star);
+  }
+
+  // Create floating hearts.
+  const hearts = document.getElementById("hearts");
+  const symbols = ["♡", "♥", "✧", "💕"];
+
+  for (let i = 0; i < 18; i++) {
+    const heart = document.createElement("span");
+    heart.textContent = symbols[i % symbols.length];
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = (12 + Math.random() * 16) + "px";
+    heart.style.animationDuration = (9 + Math.random() * 12) + "s";
+    heart.style.animationDelay = (Math.random() * 12) + "s";
+    hearts.appendChild(heart);
+  }
+
+  const envelope = document.getElementById("envelope");
+  const openButton = document.getElementById("openButton");
+  const messageCard = document.getElementById("messageCard");
+  const typedMessage = document.getElementById("typedMessage");
+  const cursor = document.getElementById("cursor");
+  const signature = document.getElementById("signature");
+  const hint = document.getElementById("hint");
+
+  // Edit this message however you want.
+  const apology =
+`Hey Chipkali 🦎,
+
+I know I made a mistake, and I genuinely want to say I'm sorry.
+
+I've been thinking about what happened, and I understand that my actions or words may have hurt you. You didn't deserve to have your feelings dismissed or to be put in that position.
+
+I'm not writing this just to make things go back to normal. I want you to know that I'm sorry because your feelings matter to me, and I should have handled things better.
+
+I can't undo what happened, but I can learn from it and try to do better. I don't expect a single sorry to fix everything, and I don't want you to feel pressured to forgive me before you're ready.
+
+You mean a lot to me, and the last thing I want is for my mistake to make you feel like you don't matter.
+
+I'm sorry, Chipkali. Truly. ❤️
+
+No matter how much time you need, I'll respect that.`;
+
+  let opened = false;
+  let typingTimer = null;
+
+  function openLetter() {
+    if (opened) {
+      messageCard.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+      return;
+    }
+
+    opened = true;
+
+    envelope.classList.add("open");
+    envelope.setAttribute("aria-expanded", "true");
+    hint.textContent = "A message, straight from my heart ♡";
+    openButton.textContent = "Read your letter ♡";
+    messageCard.classList.add("visible");
+    messageCard.setAttribute("aria-hidden", "false");
+
+    // Begin the typing effect after the letter starts opening.
+    setTimeout(() => {
+      messageCard.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+      typeMessage();
+    }, 900);
+  }
+
+  function typeMessage() {
+    if (typingTimer) clearTimeout(typingTimer);
+
+    typedMessage.textContent = "";
+    signature.classList.remove("visible");
+    cursor.style.display = "inline-block";
+
+    let index = 0;
+
+    function typeNext() {
+      if (index < apology.length) {
+        typedMessage.textContent += apology.charAt(index);
+        index++;
+
+        // Slight pauses at punctuation make the message feel natural.
+        const character = apology.charAt(index - 1);
+        const delay = [".", "!", "?"].includes(character)
+          ? 180
+          : character === "\n" ? 100 : 29;
+
+        typingTimer = setTimeout(typeNext, delay);
+      } else {
+        cursor.style.display = "none";
+        signature.classList.add("visible");
+      }
+    }
+
+    typeNext();
+  }
+
+  openButton.addEventListener("click", openLetter);
+  envelope.addEventListener("click", openLetter);
+
+  envelope.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openLetter();
+    }
+  });
+</script>
+</body>
+</html>
